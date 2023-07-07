@@ -22,13 +22,13 @@ def peliculas_duracion(Pelicula: str):
     año = pelicula_data['release_year']
     return f"Duración: {duracion} minutos. Año: {año}"
 
-@app.get("/franquicia")
+@app.get("/franquicia/{Franquicia}")
 def franquicia(Franquicia: str):
-    franquicia_data = df[df['name_production_companies'] == Franquicia]
-    peliculas_count = franquicia_data.shape[0]
-    ganancia_total = franquicia_data['revenue'].sum()
-    ganancia_promedio = franquicia_data['revenue'].mean()
-    return f"La franquicia {Franquicia} posee {peliculas_count} películas, una ganancia total de {ganancia_total} y una ganancia promedio de {ganancia_promedio}"
+    peliculas_franquicia = df[df["belongs_to_collection"] == Franquicia]
+    cantidad_peliculas = len(peliculas_franquicia)
+    ganancia_total = peliculas_franquicia["revenue"].sum() / 1000000.0
+    ganancia_promedio = peliculas_franquicia["revenue"].mean() / 1000000.0
+    return f"La franquicia {Franquicia} posee {cantidad_peliculas} películas, una ganancia total de {ganancia_total} millones de dólares y una ganancia promedio de {ganancia_promedio} millones de dólares."
 
 @app.get("/peliculas_pais")
 def peliculas_pais(Pais: str):
