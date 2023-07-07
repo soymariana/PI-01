@@ -24,7 +24,7 @@ def peliculas_duracion(Pelicula: str):
 
 @app.get("/franquicia/{Franquicia}")
 def franquicia(Franquicia: str):
-    peliculas_franquicia = df[df["belongs_to_collection"] == Franquicia]
+    peliculas_franquicia = df[df["name_belongs_to_collection"] == Franquicia]
     cantidad_peliculas = len(peliculas_franquicia)
     ganancia_total = peliculas_franquicia["revenue"].sum() / 1000000.0
     ganancia_promedio = peliculas_franquicia["revenue"].mean() / 1000000.0
