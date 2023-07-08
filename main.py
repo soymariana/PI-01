@@ -50,9 +50,9 @@ def get_director(nombre_director: str):
         pelicula_info = {
             "title": row['title'],
             "release_date": row['release_date'],
-            "return": str(row['return']),
-            "budget": str(row['budget']),
-            "revenue": str(row['revenue'])
+            "return": round(row['return'], 2),
+            "budget": round(row['budget'], 2),
+            "revenue": round(row['revenue'], 2)
         }
         peliculas.append(pelicula_info)
     return peliculas
