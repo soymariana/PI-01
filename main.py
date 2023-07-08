@@ -44,7 +44,7 @@ def productoras_exitosas(Productora: str):
 
 @app.get("/get_director")
 def get_director(nombre_director: str):
-    directores = df.loc[['job_crew'] == 'Director', 'name_crew']
+    directores = df.loc[df['job_crew'] == 'Director', 'name_crew']
     
     if nombre_director not in directores.values:
         return {"error": "El director no se encuentra en la lista"}
