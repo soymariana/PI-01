@@ -44,15 +44,22 @@ def productoras_exitosas(Productora: str):
 
 @app.get("/get_director")
 def get_director(nombre_director: str):
-    director_data = df[(df['job_crew'] == "Director") & (df['name_crew'] == nombre_director)]
+    directores = df.loc[['job_crew'] == 'Director', 'name_crew']
+    
+    if nombre_director not in directores.values:
+        return {"error": "El director no se encuentra en la lista"}
+    
+    director_data = df[df['name_crew'] == nombre_director]
+    
     peliculas = []
     for _, row in director_data.iterrows():
         pelicula_info = {
             "title": row['title'],
             "release_date": row['release_date'],
-            "return": round(row['return'], 2),
-            "budget": round(row['budget'], 2),
-            "revenue": round(row['revenue'], 2)
+            "return": row['return'],
+            "budget": row['budget'],
+            "revenue": row['revenue']
         }
         peliculas.append(pelicula_info)
+    
     return peliculas
