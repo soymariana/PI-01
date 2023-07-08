@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 import pandas as pd
+import numpy as np
 
 #Cargamos el dataframe
 df = pd.read_csv(r"C:\Users\Alfonso\Desktop\PI01\dataset_EDA.csv", dtype={"columna35": str, "columna40": str}, low_memory=False)
