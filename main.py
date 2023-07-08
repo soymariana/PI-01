@@ -68,7 +68,7 @@ def get_director(nombre_director: str):
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
-
+@app.get("/recomendacion")
 def recomendacion(titulo: str):
     #Obtener el índice de la película de entrada
     index = df[df['title'] == titulo].index[0]
