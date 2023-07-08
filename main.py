@@ -2,7 +2,7 @@ from fastapi import FastAPI
 import pandas as pd
 
 #Cargamos el dataframe
-df = pd.read_csv(r"C:\Users\Alfonso\Desktop\PI01\datasets_unidos_ETL.csv", dtype={"columna35": str, "columna40": str}, low_memory=False)
+df = pd.read_csv(r"C:\Users\Alfonso\Desktop\PI01\dataset_EDA.csv", dtype={"columna35": str, "columna40": str}, low_memory=False)
 
 app = FastAPI()
 
