@@ -63,3 +63,31 @@ def get_director(nombre_director: str):
         peliculas.append(pelicula_info)
     
     return peliculas
+
+#RECOMENDACION
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import linear_kernel
+
+def recomendacion(titulo: str):
+    #Obtener el índice de la película de entrada
+    index = df[df['title'] == titulo].index[0]
+
+    #Crear una instancia de TfidfVectorizer y ajustarla a los títulos de las películas
+    tfidf = TfidfVectorizer()
+    tfidf_matrix = tfidf.fit_transform(df['title'])
+
+    #Calcular la similitud del coseno entre las películas
+    cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+
+    #Obtener los puntajes de similitud de la película de entrada con todas las demás películas
+    scores = list(enumerate(cosine_sim[index]))
+
+    #Ordenar los índices de las películas según los puntajes de similitud en orden descendente
+    sorted_scores = sorted(scores, key=lambda x: x[1], reverse=True)
+
+    #Nombres de las 5 películas más similares
+    top_scores = sorted_scores[1:6]
+    recommended_movies = [df['title'][i[0]] for i in top_scores]
+
+    return recommended_movies
