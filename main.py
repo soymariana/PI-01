@@ -44,15 +44,15 @@ def productoras_exitosas(Productora: str):
 
 @app.get("/get_director")
 def get_director(nombre_director: str):
-    director_data = df[df['name_crew'] == nombre_director]
+    director_data = df[(df['job_crew'] == "Director") & (df['name_crew'] == nombre_director)]
     peliculas = []
     for _, row in director_data.iterrows():
         pelicula_info = {
             "title": row['title'],
             "release_date": row['release_date'],
-            "return": row['return'],
-            "budget": row['budget'],
-            "revenue": row['revenue']
+            "return": str(row['return']),
+            "budget": str(row['budget']),
+            "revenue": str(row['revenue'])
         }
         peliculas.append(pelicula_info)
     return peliculas
