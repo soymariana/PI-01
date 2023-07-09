@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 
 #Cargamos el dataframe
-df = pd.read_csv(r"C:\Users\Alfonso\Desktop\PI01\dataset_EDA.csv", dtype={"columna35": str, "columna40": str}, low_memory=False)
-
+df = pd.read_csv(r"C:\Users\Alfonso\Desktop\PI01\dataset_final.csv", dtype={"columna35": str, "columna40": str}, low_memory=False)
+df['title'].fillna('', inplace=True)
 app = FastAPI()
 
 @app.get("/")
@@ -68,27 +68,39 @@ def get_director(nombre_director: str):
 #RECOMENDACION
 
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import linear_kernel
-@app.get("/recomendacion")
-def recomendacion(titulo: str):
-    #Obtener el índice de la película de entrada
-    index = df[df['title'] == titulo].index[0]
+from sklearn.metrics.pairwise import cosine_similarity
 
-    #Crear una instancia de TfidfVectorizer y ajustarla a los títulos de las películas
-    tfidf = TfidfVectorizer()
-    tfidf_matrix = tfidf.fit_transform(df['title'])
+# Paso 1: Calcular la matriz TF-IDF
+tfidf = TfidfVectorizer(stop_words='english')
+tfidf_matrix = tfidf.fit_transform(df['title'])
 
-    #Calcular la similitud del coseno entre las películas
-    cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+# Paso 2: Calcular la matriz de similitud del coseno
+similarity_matrix = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
-    #Obtener los puntajes de similitud de la película de entrada con todas las demás películas
-    scores = list(enumerate(cosine_sim[index]))
+# Ejemplo de uso de la matriz de similitud
+input_movie_index = df.index[df['title'] == 'Toy Story']
+movie_scores = similarity_matrix[input_movie_index]
+similar_movie_indices = movie_scores.argsort()[0][::-1]
+similar_movie_indices = similar_movie_indices[1:6]  # Excluye la misma película
+recommended_movies = df.iloc[similar_movie_indices]['title'].tolist()
+print(recommended_movies)
 
-    #Ordenar los índices de las películas según los puntajes de similitud en orden descendente
-    sorted_scores = sorted(scores, key=lambda x: x[1], reverse=True)
+import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
 
-    #Nombres de las 5 películas más similares
-    top_scores = sorted_scores[1:6]
-    recommended_movies = [df['title'][i[0]] for i in top_scores]
+def recomendacion(titulo):
+    # Encuentra el índice de la película en el DataFrame
+    input_movie_index = df.index[df['title'] == titulo].item()
 
+    # Calcula la similitud entre la película de entrada y todas las demás películas
+    movie_scores = similarity_matrix[input_movie_index]
+
+    # Ordena las películas según su similitud y selecciona las 5 películas con mayor puntuación
+    similar_movie_indices = np.argsort(movie_scores)[::-1][:5]
+
+    # Obtiene los títulos de las películas recomendadas
+    recommended_movies = df.iloc[similar_movie_indices]['title'].tolist()
+
+    # Devuelve la lista de películas recomendadas
     return recommended_movies
