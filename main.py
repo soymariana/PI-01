@@ -89,6 +89,7 @@ import nltk
 nltk.download('punkt')
 nltk.download('stopwords')
 
+@app.get("/recomendacion")
 def recomendacion(titulo):
     # Encuentra el índice de la película en el DataFrame
     input_movie_index = df.index[df['title'] == titulo].item()
