@@ -2,7 +2,6 @@ from fastapi import FastAPI
 import pandas as pd
 import numpy as np
 
-#Cargamos el dataframe
 df = pd.read_csv(r"C:\Users\Alfonso\Desktop\PI01\dataset_final.csv", dtype={"columna35": str, "columna40": str}, low_memory=False)
 df['title'].fillna('', inplace=True)
 app = FastAPI()
@@ -41,7 +40,7 @@ def productoras_exitosas(Productora: str):
     productora_data = df[df['name_production_companies'] == Productora]
     peliculas_count = productora_data.shape[0]
     revenue_total = productora_data['revenue'].sum()
-    return f"La productora {Productora} ha tenido un revenue de {revenue_total} en {peliculas_count} películas"
+    return f"La productora {Productora} ha tenido un revenue de {revenue_total} millones, en {peliculas_count} películas"
 
 @app.get("/get_director")
 def get_director(nombre_director: str):
