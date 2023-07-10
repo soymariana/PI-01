@@ -18,7 +18,11 @@ Finalmente, se creó el sistema de recomendación sobre el archivo main.py, dond
 
 
 A continuación dejo el link de drive de los archivos:
+
 Transformaciones: https://drive.google.com/file/d/1-7K_-1rv4GAoW6qgnWGL-_mtH4V49b7l/view?usp=sharing
+
 video explicativo: https://drive.google.com/file/d/14WyTDt4ufHw4-tU1zK0PFW17OvhcT5bS/view?usp=sharing
+
 EDA: https://drive.google.com/file/d/1-G9w9VjPgyqPVuGX50BPSqS-5v5CbXPt/view?usp=sharing
+
 drive todos los archivos: https://drive.google.com/file/d/14WyTDt4ufHw4-tU1zK0PFW17OvhcT5bS/view?usp=sharing
