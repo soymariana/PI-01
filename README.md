@@ -26,3 +26,5 @@ video explicativo: https://drive.google.com/file/d/14WyTDt4ufHw4-tU1zK0PFW17Ovhc
 EDA: https://drive.google.com/file/d/1-G9w9VjPgyqPVuGX50BPSqS-5v5CbXPt/view?usp=sharing
 
 drive todos los archivos: https://drive.google.com/drive/folders/1cZNmh-L6w4TVdxi60pVwGcC_hEDN-hGj?usp=sharing
+
+**PD:** No pude cargar los archivos csv al repositorio para que corriera la página web de la API.
